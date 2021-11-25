@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-[#222E50]">
       <Head>
         <title>Create Next App</title>
       </Head>
@@ -26,7 +26,7 @@ export default function Home() {
           placeholder="username"
         />
         <Link href={`/${user}`} passHref>
-          <a>Go to user&apos;s dashboard</a>
+          <a className="text-center">Go to user&apos;s dashboard</a>
         </Link>
       </form>
     </div>

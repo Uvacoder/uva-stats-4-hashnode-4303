@@ -2,22 +2,14 @@ import Head from "next/head";
 import Post from "../components/Post";
 import { PostType } from "../types/PostType";
 import Image from "next/image";
+import Socials from "../components/Socials";
+import { SocialTypes } from "../types/SocialTypes";
+import { UserType } from "../types/UserType";
 
 interface Props {
   data: {
     data: {
-      user: {
-        username: string;
-        numFollowing: string;
-        numFollowers: string;
-        numReactions: string;
-        name: string;
-        photo: string;
-        publicationDomain: string;
-        publication: {
-          posts: [PostType];
-        };
-      };
+      user: UserType;
     };
   };
 }
@@ -29,14 +21,19 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
         <title>Dashboard for {data.data.user.name}</title>
       </Head>
       <h1 className="text-3xl font-semibold text-gray-50">User Dashboard</h1>
-      <div className="relative h-24 w-24 rounded-full">
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href={`https://hashnode.com/@${data.data.user.username}`}
+        className="relative h-24 w-24 rounded-full"
+      >
         <Image
           layout="fill"
           className="rounded-full"
           src={data.data.user.photo}
           alt={data.data.user.name}
         />
-      </div>
+      </a>
       <div className="flex flex-col">
         <h2 className="text-center font-medium text-gray-50 text-2xl">
           Account
@@ -55,11 +52,16 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
         </div>
       </div>
 
+      <Socials
+        socials={data.data.user.socialMedia}
+        hashnode={`https://hashnode.com/@${data.data.user.username}`}
+      />
+
       <div className="flex flex-col">
-        <h2 className="text-center font-medium text-gray-50 text-2xl">
+        <h2 className="text-center font-medium text-gray-50 text-2xl mt-10">
           Your posts
         </h2>
-        <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5 mt-10">
+        <div className="flex flex-col flex-wrap md:flex-row">
           {data?.data?.user?.publication?.posts
             ?.slice(0, 3)
             .map((post: PostType) => (
@@ -90,6 +92,14 @@ export async function getServerSideProps(context: any) {
     name
     photo
     publicationDomain
+    socialMedia {
+      twitter
+      github
+      linkedin
+      website
+      facebook
+      stackoverflow
+    }
     publication {
       posts(page: 0) {
         _id
