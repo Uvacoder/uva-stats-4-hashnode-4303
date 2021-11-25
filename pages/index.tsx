@@ -20,7 +20,7 @@ export default function Home() {
       <form className="flex flex-col space-y-2" onSubmit={handleSubmit}>
         <input
           value={user}
-          onChange={(e) => setUser(e.target.value)}
+          onChange={e => setUser(e.target.value)}
           className="p-2 bg-blue-200 border-blue-400 rounded-lg focus:border-2 focus:outline-none"
           type="text"
           placeholder="username"
