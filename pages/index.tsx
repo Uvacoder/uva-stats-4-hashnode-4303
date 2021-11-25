@@ -21,7 +21,7 @@ export default function Home() {
         <input
           value={user}
           onChange={(e) => setUser(e.target.value)}
-          className="bg-blue-200 p-2 rounded-lg focus:border-2 border-blue-400 focus:outline-none"
+          className="p-2 bg-blue-200 border-blue-400 rounded-lg focus:border-2 focus:outline-none"
           type="text"
           placeholder="username"
         />

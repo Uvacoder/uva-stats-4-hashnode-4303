@@ -1,11 +1,9 @@
-import Head from "next/head";
-import Post from "../components/Post";
-import { PostType } from "../types/PostType";
-import Image from "next/image";
-import Socials from "../components/Socials";
-import { SocialTypes } from "../types/SocialTypes";
-import { UserType } from "../types/UserType";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
+import Post from "../components/Post";
+import Socials from "../components/Socials";
+import { PostType } from "../types/PostType";
+import { UserType } from "../types/UserType";
 
 interface Props {
   data: {
@@ -17,7 +15,7 @@ interface Props {
 
 const UserDashboard: React.FC<Props> = ({ data }) => {
   return (
-    <div className="min-w-screen max-w-screen bg-[#222E50] min-h-screen flex items-center flex-col">
+    <div className="min-w-screen max-w-screen pb-10 bg-[#222E50] min-h-screen flex items-center flex-col">
       {data.data.user.username ? (
         <>
           <NextSeo
@@ -31,28 +29,29 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
             target="_blank"
             rel="noreferrer"
             href={`https://hashnode.com/@${data.data.user.username}`}
-            className="relative h-24 w-24 rounded-full"
+            className="relative w-24 h-24 rounded-full"
           >
             <Image
               layout="fill"
               className="rounded-full"
+              objectFit="cover"
               src={data.data.user.photo}
               alt={data.data.user.name}
             />
           </a>
           <div className="flex flex-col">
-            <h2 className="text-center font-medium text-gray-50 text-2xl">
+            <h2 className="text-2xl font-medium text-center text-gray-50">
               Account
             </h2>
 
             <div className="flex text-gray-50">
-              <p className="bg-white/5 p-2 rounded-lg m-1">
+              <p className="p-2 m-1 rounded-lg bg-white/5">
                 Followers: {data.data.user.numFollowers}
               </p>
-              <p className="bg-white/5 p-2 rounded-lg m-1">
+              <p className="p-2 m-1 rounded-lg bg-white/5">
                 Following: {data.data.user.numFollowing}
               </p>
-              <p className="bg-white/5 p-2 rounded-lg m-1">
+              <p className="p-2 m-1 rounded-lg bg-white/5">
                 Total Reactions: {data.data.user.numReactions}
               </p>
             </div>
@@ -64,8 +63,8 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
           />
 
           <div className="flex flex-col">
-            <h2 className="text-center font-medium text-gray-50 text-2xl mt-10">
-              Your posts
+            <h2 className="mt-10 text-2xl font-medium text-center text-gray-50">
+              Recent posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
               {data?.data?.user?.publication?.posts
@@ -81,7 +80,7 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
           </div>
         </>
       ) : (
-        <h1 className="text-3xl font-semibold text-gray-50 mt-10">
+        <h1 className="mt-10 text-3xl font-semibold text-gray-50">
           User not found
         </h1>
       )}

@@ -14,7 +14,7 @@ const Post: React.FC<Props> = ({ post, publicationDomain }) => {
       key={post._id}
       target="_blank"
       rel="noreferrer"
-      className="flex rounded-lg my-5 md:mb-0 md:mx-5 mt-5 flex-col relative w-96 bg-white/5 "
+      className="relative flex flex-col my-5 mt-5 rounded-lg md:mb-0 md:mx-5 w-96 bg-white/5 "
     >
       {post.coverImage && (
         <Image
@@ -28,16 +28,16 @@ const Post: React.FC<Props> = ({ post, publicationDomain }) => {
       )}
 
       <div className="flex flex-col p-4 pb-0">
-        <h2 className="font-semibold text-2xl text-gray-50">{post.title}</h2>
-        <p className="text-base text-gray-50 break-words">{post.brief}</p>
+        <h2 className="text-2xl font-semibold text-gray-50">{post.title}</h2>
+        <p className="text-base break-words text-gray-50">{post.brief}</p>
       </div>
-      <div className="flex p-4 w-full justify-between">
+      <div className="flex justify-between w-full p-4 mt-auto">
         <div className="flex">
-          <LikeIcon className="w-6 h-6 mr-2 text-gray-50 fill-current" />
+          <LikeIcon className="w-6 h-6 mr-2 fill-current text-gray-50" />
           <p className="text-gray-50">{post.totalReactions}</p>
         </div>
         <div className="flex">
-          <CommentIcon className="w-6 h-6 mr-2 text-gray-50 fill-current" />
+          <CommentIcon className="w-6 h-6 mr-2 fill-current text-gray-50" />
           <p className="text-gray-50">{post.replyCount + post.responseCount}</p>
         </div>
       </div>

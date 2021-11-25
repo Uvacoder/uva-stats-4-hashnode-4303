@@ -15,7 +15,7 @@ interface Props {
 const Socials: React.FC<Props> = ({ socials, hashnode }) => {
   return (
     <div className="flex flex-col">
-      <h2 className="font-semibold text-2xl text-center text-gray-50 my-3">
+      <h2 className="my-3 text-2xl font-semibold text-center text-gray-50">
         Social Media
       </h2>
       <div className="flex">
@@ -26,7 +26,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <TwitterIcon className="w-12 h-12 p-1 rounded-md text-gray-50 fill-current bg-white/5" />
+            <TwitterIcon className="w-12 h-12 p-1 rounded-md fill-current text-gray-50 bg-white/5" />
           </a>
         )}
         {socials.github.length > 0 && (
@@ -36,7 +36,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GitHubIcon className="w-12 h-12 p-1 rounded-md text-gray-50 fill-current bg-white/5" />
+            <GitHubIcon className="w-12 h-12 p-1 rounded-md fill-current text-gray-50 bg-white/5" />
           </a>
         )}
         {socials.linkedin.length > 0 && (
@@ -46,7 +46,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <LinkedInIcon className="w-12 h-12 p-1 rounded-md text-gray-50 fill-current bg-white/5" />
+            <LinkedInIcon className="w-12 h-12 p-1 rounded-md fill-current text-gray-50 bg-white/5" />
           </a>
         )}
         {socials.website.length > 0 && (
@@ -56,7 +56,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GlobeIcon className="w-12 h-12 p-1 rounded-md text-gray-50 fill-current bg-white/5" />
+            <GlobeIcon className="w-12 h-12 p-1 rounded-md fill-current text-gray-50 bg-white/5" />
           </a>
         )}
         <a
@@ -65,7 +65,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <HashnodeIcon className="w-12 h-12 p-1 rounded-md text-gray-50 fill-current bg-white/5" />
+          <HashnodeIcon className="w-12 h-12 p-1 rounded-md fill-current text-gray-50 bg-white/5" />
         </a>
       </div>
     </div>
