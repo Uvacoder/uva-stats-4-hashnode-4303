@@ -5,6 +5,7 @@ import Image from "next/image";
 import Socials from "../components/Socials";
 import { SocialTypes } from "../types/SocialTypes";
 import { UserType } from "../types/UserType";
+import { NextSeo } from "next-seo";
 
 interface Props {
   data: {
@@ -19,9 +20,10 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
     <div className="min-w-screen max-w-screen bg-[#222E50] min-h-screen flex items-center flex-col">
       {data.data.user.username ? (
         <>
-          <Head>
-            <title>Dashboard for {data.data.user.name}</title>
-          </Head>
+          <NextSeo
+            title={`Dashboard for ${data.data.user.name}`}
+            canonical={`https://hashnode-stats.vercel.app/${data.data.user.username}`}
+          />
           <h1 className="text-3xl font-semibold text-gray-50">
             User Dashboard
           </h1>
