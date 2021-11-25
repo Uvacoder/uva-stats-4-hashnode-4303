@@ -26,7 +26,9 @@ export default function Home() {
           placeholder="username"
         />
         <Link href={`/${user}`} passHref>
-          <a className="text-center">Go to user&apos;s dashboard</a>
+          <a className="text-center text-gray-50">
+            Go to user&apos;s dashboard
+          </a>
         </Link>
       </form>
     </div>
