@@ -1,5 +1,5 @@
 import { AppProps } from "next/app";
-import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
 import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
