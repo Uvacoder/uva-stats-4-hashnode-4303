@@ -2,6 +2,7 @@ import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import Header from "../components/Header";
 
 export default function Home() {
   const [user, setUser] = useState("");
@@ -13,10 +14,12 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-[#222E50]">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
         <title>Create Next App</title>
       </Head>
+      <Header />
+
       <form className="flex flex-col space-y-2" onSubmit={handleSubmit}>
         <input
           value={user}

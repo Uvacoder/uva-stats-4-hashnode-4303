@@ -6,6 +6,7 @@ export type UserType = {
   numFollowing: string;
   numFollowers: string;
   numReactions: string;
+  numPosts: string;
   name: string;
   photo: string;
   publicationDomain: string;

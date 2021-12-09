@@ -1,5 +1,6 @@
 import { NextSeo } from "next-seo";
 import Image from "next/image";
+import Header from "../components/Header";
 import Post from "../components/Post";
 import Socials from "../components/Socials";
 import { PostType } from "../types/PostType";
@@ -15,21 +16,21 @@ interface Props {
 
 const UserDashboard: React.FC<Props> = ({ data }) => {
   return (
-    <div className="min-w-screen max-w-screen pb-10 bg-[#222E50] min-h-screen flex items-center flex-col">
+    <div className="flex flex-col items-center min-h-screen p-10 pb-10 min-w-screen max-w-screen">
       {data.data.user.username ? (
         <>
           <NextSeo
             title={`Dashboard for ${data.data.user.name}`}
             canonical={`https://hashnode-stats.vercel.app/${data.data.user.username}`}
           />
-          <h1 className="text-3xl font-semibold text-gray-50">
-            User Dashboard
-          </h1>
+
+          <Header />
+
           <a
             target="_blank"
             rel="noreferrer"
             href={`https://hashnode.com/@${data.data.user.username}`}
-            className="relative w-24 h-24 rounded-full"
+            className="relative w-40 h-40 rounded-full"
           >
             <Image
               layout="fill"
@@ -40,19 +41,22 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
             />
           </a>
           <div className="flex flex-col">
-            <h2 className="text-2xl font-medium text-center text-gray-50">
+            <h2 className="text-2xl font-medium text-center dark:text-gray-50 text-[#1B1A28]">
               Account
             </h2>
 
-            <div className="flex text-gray-50">
-              <p className="p-2 m-1 rounded-lg bg-white/5">
+            <div className="flex">
+              <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
                 Followers: {data.data.user.numFollowers}
               </p>
-              <p className="p-2 m-1 rounded-lg bg-white/5">
+              <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
                 Following: {data.data.user.numFollowing}
               </p>
-              <p className="p-2 m-1 rounded-lg bg-white/5">
+              <p className="py-2 px-4 m-1 rounded-lg  text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF]">
                 Total Reactions: {data.data.user.numReactions}
+              </p>
+              <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
+                Total Posts: {data.data.user.numPosts}
               </p>
             </div>
           </div>
@@ -63,7 +67,7 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
           />
 
           <div className="flex flex-col">
-            <h2 className="mt-10 text-2xl font-medium text-center text-gray-50">
+            <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
               Recent posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
@@ -80,7 +84,7 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
           </div>
         </>
       ) : (
-        <h1 className="mt-10 text-3xl font-semibold text-gray-50">
+        <h1 className="mt-10 text-3xl font-semibold text-[#1B1A28] dark:text-gray-50">
           User not found
         </h1>
       )}
@@ -99,10 +103,11 @@ export async function getServerSideProps(context: any) {
     username
     numFollowing
     numFollowers
-    numReactions    
+    numReactions
     name
     photo
     publicationDomain
+    numPosts
     socialMedia {
       twitter
       github
@@ -121,10 +126,12 @@ export async function getServerSideProps(context: any) {
         totalReactions
         replyCount
         responseCount
+        popularity
       }
     }
   }
 }
+
 `;
 
   const hashnodeFollowers = await fetch("https://api.hashnode.com", {
