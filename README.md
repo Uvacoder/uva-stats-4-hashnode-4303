@@ -45,4 +45,3 @@ This project is [GPL-3.0](https://github.com/avneesh0612/random-words/blob/main/
 
 Give a ⭐️ if this project helped you!
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/avneesh0612)
