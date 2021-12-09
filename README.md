@@ -39,7 +39,7 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 ## 📝 License
 
 Copyright © 2021 [Avneesh Agarwal](https://github.com/avneesh0612).<br />
-This project is [GPL-3.0](https://github.com/avneesh0612/random-words/blob/main/LICENSE) licensed.
+This project is [GPL-3.0](https://github.com/avneesh0612/hashnode-analytics/blob/main/LICENSE) licensed.
 
 ## Show your support
 
