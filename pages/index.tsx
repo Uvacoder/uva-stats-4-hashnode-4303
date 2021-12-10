@@ -28,7 +28,7 @@ export default function Home() {
           This website shows various statistics of{" "}
           <a
             href="https://hashnode.com"
-            target={"_blank"}
+            rel="noreferrer"
             className="font-bold hover:underline"
           >
             hashnode
@@ -39,8 +39,8 @@ export default function Home() {
           This project is open-source and feel free to star it on{" "}
           <a
             href="https://github.com/avneesh0612/hashnode-analytics"
-            target={"_blank"}
             className="font-bold hover:underline"
+            rel="noreferrer"
           >
             GitHub
           </a>
