@@ -20,27 +20,32 @@ export default function Home() {
       </Head>
       <Header />
 
-      <form className="flex flex-col space-y-2" onSubmit={handleSubmit}>
-        <h1 className="text-center text-gray-50 text-2xl font-mono font-extrabold">
+      <form
+        className="flex flex-col items-center space-y-2"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="font-mono text-2xl font-extrabold text-center text-gray-50">
           Hashnode Stats
         </h1>
-        <p className="text-center text-gray-50 text-md font-mono">
+        <p className="font-mono text-center text-gray-50 text-md">
           This website shows various statistics of{" "}
           <a
             href="https://hashnode.com"
             rel="noreferrer"
+            target="_blank"
             className="font-bold hover:underline"
           >
             hashnode
           </a>{" "}
           users like bio information, posts etc.
         </p>
-        <p className="text-center text-gray-50 text-md font-mono">
-          This project is open-source and feel free to star it on{" "}
+        <p className="font-mono text-center text-gray-50 text-md">
+          This project is open-source, feel free to star and contribute on{" "}
           <a
             href="https://github.com/avneesh0612/hashnode-analytics"
             className="font-bold hover:underline"
             rel="noreferrer"
+            target="_blank"
           >
             GitHub
           </a>
@@ -49,12 +54,12 @@ export default function Home() {
         <input
           value={user}
           onChange={e => setUser(e.target.value)}
-          className="p-2 bg-blue-200 border-blue-400 rounded-lg focus:border-2 focus:outline-none font-mono"
+          className="p-2 font-mono bg-blue-200 border-blue-400 rounded-lg w-60 focus:border-2 focus:outline-none"
           type="text"
           placeholder="username"
         />
         <Link href={`/${user}`} passHref>
-          <a className="text-center text-gray-50 font-mono hover:underline">
+          <a className="font-mono text-center text-gray-50 hover:underline">
             Go to user&apos;s dashboard
           </a>
         </Link>
