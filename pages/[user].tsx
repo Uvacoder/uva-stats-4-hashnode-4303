@@ -17,9 +17,14 @@ import { UserType } from "../types/UserType";
 interface Props {
   userData: UserType;
   postsData: PostType[];
+  recentPostsData: PostType[];
 }
 
-const UserDashboard: React.FC<Props> = ({ userData, postsData }) => {
+const UserDashboard: React.FC<Props> = ({
+  userData,
+  postsData,
+  recentPostsData,
+}) => {
   return (
     <div className="flex flex-col items-center min-h-screen p-10 pb-10 min-w-screen max-w-screen">
       {userData.username ? (
@@ -73,7 +78,20 @@ const UserDashboard: React.FC<Props> = ({ userData, postsData }) => {
 
           <div className="flex flex-col">
             <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
-              Posts
+              Recent posts
+            </h2>
+            <div className="flex flex-col flex-wrap md:flex-row">
+              {recentPostsData.slice(0, 3).map((post: PostType) => (
+                <Post
+                  publicationDomain={userData.publicationDomain}
+                  key={post._id}
+                  post={post}
+                />
+              ))}
+            </div>
+
+            <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
+              Top posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
               {postsData.slice(0, 3).map((post: PostType) => (
@@ -102,27 +120,26 @@ export async function getServerSideProps(context: any) {
 
   const userDataQuery = `
    {
-  user(username: "${userName}") {
-    username
-    numFollowing
-    numFollowers
-    numReactions
-    name
-    photo
-    publicationDomain
-    numPosts
-    socialMedia {
-      twitter
-      github
-      linkedin
-      website
-      facebook
-      stackoverflow
+      user(username: "${userName}") {
+        username
+        numFollowing
+        numFollowers
+        numReactions
+        name
+        photo
+        publicationDomain
+        numPosts
+        socialMedia {
+          twitter
+          github
+          linkedin
+          website
+          facebook
+          stackoverflow
+        }
+      }
     }
-  }
-}
-
-`;
+  `;
 
   const postDataQuery = `
 		query($username: String!, $page: Int) {
@@ -154,6 +171,7 @@ export async function getServerSideProps(context: any) {
   const userData = await userDataRes.json();
 
   let posts: PostType[] = [];
+  let recentPosts: PostType[] = [];
 
   if (userData.data) {
     if (userData.data.user) {
@@ -178,6 +196,7 @@ export async function getServerSideProps(context: any) {
           if (userPostsJson.data.user) {
             if (userPostsJson.data.user.publication) {
               if (userPostsJson.data.user.publication.posts.length > 0) {
+                recentPosts = posts;
                 posts = posts.concat(userPostsJson.data.user.publication.posts);
                 i++;
               } else {
@@ -206,6 +225,7 @@ export async function getServerSideProps(context: any) {
     props: {
       userData: userData.data.user,
       postsData: posts,
+      recentPostsData: recentPosts,
     },
   };
 }
