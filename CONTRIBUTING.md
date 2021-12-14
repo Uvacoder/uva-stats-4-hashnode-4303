@@ -1,22 +1,22 @@
 ## Contributing to HashNode-Analytics
 
-We are going to create a pr. You need to know basic git and github commands to make a pr. If you don't know about it, check my [Git and Github crash course](https://avneesh0612.hashnode.dev/git-and-github-crash-course "Git and Github crash course")
-
+We are going to create a pr. You need to know basic git and github commands to make a pr.
 Click on fork in the top left corner of your screen. Clone the repo you have been redirected to
 
 ```bash
-git clone <url_redirected_to>
+git clone https://github.com/<your_username>/hashnode-analytics.git
 ```
 
 ### Installing dependencies
 
-If you use yarn then run
+Install yarn globally. This project is using yarn so **it is advised to use yarn** as package manager.
 
 ```bash
+npm i -g yarn
+
 yarn install
 ```
 
-This project is using yarn so **it is advised to use yarn** as package manager.
 
 ### Creating a new branch
 
@@ -44,6 +44,24 @@ this project uses **conventional commits**. You should commit your work accordin
 
 ## Creating a PR
 
-Checkout [this](https://avneesh0612.hashnode.dev/how-to-contribute-to-an-open-source-project) article to make a PR
+**Pushing the code to Github**
 
-You have successfully created a pull request and I will review and merge it soon.
+```
+git add .
+git commit -m "commit message (according to conventions mentioned above)"
+git push origin new-feature
+```
+
+After pushing the code go to your repository go to your repository and now this button will be enabled.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1627311880224/BoU02D7DZ.png)
+
+Now open a pull request.
+
+After clicking on create a pull request, you will see this
+
+Now create a pull request-
+
+- Give a title and description and create pull request.
+
+- You have created a pull request, and I will review it soon.
