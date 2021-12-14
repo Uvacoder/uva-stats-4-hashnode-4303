@@ -21,7 +21,7 @@ yarn install
 ### Creating a new branch
 
 ```bash
-git checkout -b new-feature
+git checkout -b <branch-name>
 ```
 
 ### Starting server
