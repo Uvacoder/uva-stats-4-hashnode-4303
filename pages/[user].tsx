@@ -6,22 +6,27 @@ import Socials from "../components/Socials";
 import { PostType } from "../types/PostType";
 import { UserType } from "../types/UserType";
 
+// interface Props {
+//   data: {
+//     data: {
+//       user: UserType;
+//     };
+//   };
+// }
+
 interface Props {
-  data: {
-    data: {
-      user: UserType;
-    };
-  };
+  userData: UserType;
+  postsData: PostType[];
 }
 
-const UserDashboard: React.FC<Props> = ({ data }) => {
+const UserDashboard: React.FC<Props> = ({ userData, postsData }) => {
   return (
     <div className="flex flex-col items-center min-h-screen p-10 pb-10 min-w-screen max-w-screen">
-      {data.data.user.username ? (
+      {userData.username ? (
         <>
           <NextSeo
-            title={`Dashboard for ${data.data.user.name}`}
-            canonical={`https://hashnode-stats.vercel.app/${data.data.user.username}`}
+            title={`Dashboard for ${userData.name}`}
+            canonical={`https://hashnode-stats.vercel.app/${userData.username}`}
           />
 
           <Header />
@@ -29,15 +34,15 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
           <a
             target="_blank"
             rel="noreferrer"
-            href={`https://hashnode.com/@${data.data.user.username}`}
+            href={`https://hashnode.com/@${userData.username}`}
             className="relative w-40 h-40 rounded-full"
           >
             <Image
               layout="fill"
               className="rounded-full"
               objectFit="cover"
-              src={data.data.user.photo}
-              alt={data.data.user.name}
+              src={userData.photo}
+              alt={userData.name}
             />
           </a>
           <div className="flex flex-col">
@@ -47,39 +52,37 @@ const UserDashboard: React.FC<Props> = ({ data }) => {
 
             <div className="flex">
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Followers: {data.data.user.numFollowers}
+                Followers: {userData.numFollowers}
               </p>
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Following: {data.data.user.numFollowing}
+                Following: {userData.numFollowing}
               </p>
               <p className="py-2 px-4 m-1 rounded-lg  text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF]">
-                Total Reactions: {data.data.user.numReactions}
+                Total Reactions: {userData.numReactions}
               </p>
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Total Posts: {data.data.user.numPosts}
+                Total Posts: {userData.numPosts}
               </p>
             </div>
           </div>
 
           <Socials
-            socials={data.data.user.socialMedia}
-            hashnode={`https://hashnode.com/@${data.data.user.username}`}
+            socials={userData.socialMedia}
+            hashnode={`https://hashnode.com/@${userData.username}`}
           />
 
           <div className="flex flex-col">
             <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
-              Recent posts
+              Posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
-              {data?.data?.user?.publication?.posts
-                ?.slice(0, 3)
-                .map((post: PostType) => (
-                  <Post
-                    publicationDomain={data.data.user.publicationDomain}
-                    key={post._id}
-                    post={post}
-                  />
-                ))}
+              {postsData.slice(0, 3).map((post: PostType) => (
+                <Post
+                  publicationDomain={userData.publicationDomain}
+                  key={post._id}
+                  post={post}
+                />
+              ))}
             </div>
           </div>
         </>
@@ -97,7 +100,7 @@ export default UserDashboard;
 export async function getServerSideProps(context: any) {
   const userName = context.query.user;
 
-  const query = `
+  const userDataQuery = `
    {
   user(username: "${userName}") {
     username
@@ -116,36 +119,93 @@ export async function getServerSideProps(context: any) {
       facebook
       stackoverflow
     }
-    publication {
-      posts(page: 0) {
-        _id
-        title
-        brief
-        slug
-        coverImage
-        totalReactions
-        replyCount
-        responseCount
-        popularity
-      }
-    }
   }
 }
 
 `;
 
-  const hashnodeFollowers = await fetch("https://api.hashnode.com", {
+  const postDataQuery = `
+		query($username: String!, $page: Int) {
+			user(username: $username) {
+				publication {
+					posts(page: $page) {
+						_id
+						title
+						brief
+						slug
+						coverImage
+						totalReactions
+						replyCount
+						responseCount
+						popularity
+					}
+				}
+			}
+		}
+	`;
+
+  const userDataRes = await fetch("https://api.hashnode.com", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query: userDataQuery }),
   });
-  const ApiResponse = await hashnodeFollowers.json();
+  const userData = await userDataRes.json();
+
+  let posts: PostType[] = [];
+
+  if (userData.data) {
+    if (userData.data.user) {
+      let loadMoreData = true;
+      let i = 0;
+
+      while (loadMoreData) {
+        const userPostsRes = await fetch("https://api.hashnode.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: postDataQuery,
+            variables: { username: userName, page: i },
+          }),
+        });
+
+        const userPostsJson = await userPostsRes.json();
+
+        if (userPostsJson.data) {
+          if (userPostsJson.data.user) {
+            if (userPostsJson.data.user.publication) {
+              if (userPostsJson.data.user.publication.posts.length > 0) {
+                posts = posts.concat(userPostsJson.data.user.publication.posts);
+                i++;
+              } else {
+                loadMoreData = false;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const comparePostData = (post1: PostType, post2: PostType) => {
+    if (post1.totalReactions < post2.totalReactions) {
+      return 1;
+    } else if (post1.totalReactions > post2.totalReactions) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  posts = posts.sort(comparePostData);
 
   return {
     props: {
-      data: ApiResponse,
+      userData: userData.data.user,
+      postsData: posts,
     },
   };
 }
