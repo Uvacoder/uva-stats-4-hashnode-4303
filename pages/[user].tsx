@@ -14,14 +14,19 @@ import { UserType } from "../types/UserType";
 //   };
 // }
 
-const UserDashboard: React.FC = ({ userData, postsData }) => {
+interface Props {
+  userData: UserType;
+  postData: PostType[];
+}
+
+const UserDashboard: React.FC<Props> = ({ userData, postsData }) => {
   return (
     <div className="flex flex-col items-center min-h-screen p-10 pb-10 min-w-screen max-w-screen">
-      {userData.data.user.username ? (
+      {userData.username ? (
         <>
           <NextSeo
-            title={`Dashboard for ${userData.data.user.name}`}
-            canonical={`https://hashnode-stats.vercel.app/${userData.data.user.username}`}
+            title={`Dashboard for ${userData.name}`}
+            canonical={`https://hashnode-stats.vercel.app/${userData.username}`}
           />
 
           <Header />
@@ -29,15 +34,15 @@ const UserDashboard: React.FC = ({ userData, postsData }) => {
           <a
             target="_blank"
             rel="noreferrer"
-            href={`https://hashnode.com/@${userData.data.user.username}`}
+            href={`https://hashnode.com/@${userData.username}`}
             className="relative w-40 h-40 rounded-full"
           >
             <Image
               layout="fill"
               className="rounded-full"
               objectFit="cover"
-              src={userData.data.user.photo}
-              alt={userData.data.user.name}
+              src={userData.photo}
+              alt={userData.name}
             />
           </a>
           <div className="flex flex-col">
@@ -47,23 +52,23 @@ const UserDashboard: React.FC = ({ userData, postsData }) => {
 
             <div className="flex">
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Followers: {userData.data.user.numFollowers}
+                Followers: {userData.numFollowers}
               </p>
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Following: {userData.data.user.numFollowing}
+                Following: {userData.numFollowing}
               </p>
               <p className="py-2 px-4 m-1 rounded-lg  text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF]">
-                Total Reactions: {userData.data.user.numReactions}
+                Total Reactions: {userData.numReactions}
               </p>
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Total Posts: {userData.data.user.numPosts}
+                Total Posts: {userData.numPosts}
               </p>
             </div>
           </div>
 
           <Socials
-            socials={userData.data.user.socialMedia}
-            hashnode={`https://hashnode.com/@${userData.data.user.username}`}
+            socials={userData.socialMedia}
+            hashnode={`https://hashnode.com/@${userData.username}`}
           />
 
           <div className="flex flex-col">
@@ -73,7 +78,7 @@ const UserDashboard: React.FC = ({ userData, postsData }) => {
             <div className="flex flex-col flex-wrap md:flex-row">
               {postsData.map((post: PostType) => (
                 <Post
-                  publicationDomain={userData.data.user.publicationDomain}
+                  publicationDomain={userData.publicationDomain}
                   key={post._id}
                   post={post}
                 />
@@ -148,7 +153,7 @@ export async function getServerSideProps(context: any) {
   });
   const userData = await userDataRes.json();
 
-  let posts = [];
+  let posts: PostType[] = [];
 
   if (userData.data) {
     if (userData.data.user) {
@@ -187,7 +192,7 @@ export async function getServerSideProps(context: any) {
 
   return {
     props: {
-      userData: userData,
+      userData: userData.data.user,
       postsData: posts,
     },
   };
