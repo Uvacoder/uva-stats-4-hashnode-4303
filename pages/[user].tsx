@@ -73,10 +73,10 @@ const UserDashboard: React.FC<Props> = ({ userData, postsData }) => {
 
           <div className="flex flex-col">
             <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
-              Recent posts
+              Posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
-              {postsData.map((post: PostType) => (
+              {postsData.slice(0, 3).map((post: PostType) => (
                 <Post
                   publicationDomain={userData.publicationDomain}
                   key={post._id}
