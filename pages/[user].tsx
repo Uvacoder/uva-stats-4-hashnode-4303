@@ -190,6 +190,18 @@ export async function getServerSideProps(context: any) {
     }
   }
 
+  const comparePostData = (post1: PostType, post2: PostType) => {
+    if (post1.totalReactions < post2.totalReactions) {
+      return 1;
+    } else if (post1.totalReactions > post2.totalReactions) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  posts = posts.sort(comparePostData);
+
   return {
     props: {
       userData: userData.data.user,
