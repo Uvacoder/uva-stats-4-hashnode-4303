@@ -16,7 +16,7 @@ import { UserType } from "../types/UserType";
 
 interface Props {
   userData: UserType;
-  postData: PostType[];
+  postsData: PostType[];
 }
 
 const UserDashboard: React.FC<Props> = ({ userData, postsData }) => {
