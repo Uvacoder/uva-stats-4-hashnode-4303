@@ -137,6 +137,19 @@ export async function getServerSideProps(context: any) {
           facebook
           stackoverflow
         }
+         publication {
+					posts(page: 0) {
+						_id
+						title
+						brief
+						slug
+						coverImage
+						totalReactions
+						replyCount
+						responseCount
+						popularity
+					}
+				}
       }
     }
   `;
@@ -170,8 +183,9 @@ export async function getServerSideProps(context: any) {
   });
   const userData = await userDataRes.json();
 
+  const recentPosts = userData.data.user.publication.posts;
+
   let posts: PostType[] = [];
-  let recentPosts: PostType[] = [];
 
   if (userData.data) {
     if (userData.data.user) {
@@ -196,7 +210,6 @@ export async function getServerSideProps(context: any) {
           if (userPostsJson.data.user) {
             if (userPostsJson.data.user.publication) {
               if (userPostsJson.data.user.publication.posts.length > 0) {
-                recentPosts = posts;
                 posts = posts.concat(userPostsJson.data.user.publication.posts);
                 i++;
               } else {
