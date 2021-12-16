@@ -53,7 +53,7 @@ const getTopPosts = async (username: string) => {
   const comparePostData = (
     { totalReactions: reactions1 }: PostType,
     { totalReactions: reactions2 }: PostType
-  ) => reactions1 - reactions2;
+  ) => reactions2 - reactions1;
   const topPosts = posts.sort(comparePostData);
 
   return topPosts;
