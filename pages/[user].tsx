@@ -15,7 +15,7 @@ interface Props {
   userDataAndPosts: UserType;
 }
 
-const UserDashboard = ({ userDataAndPosts }) => {
+const UserDashboard = ({ userDataAndPosts }: Props) => {
   const [topPostsData, setTopPostsData] = useState<PostType[] | null>();
 
   const router = useRouter();
