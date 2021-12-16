@@ -21,6 +21,12 @@ query($username: String!, $page: Int) {
 `;
 
 const getAllPosts = async (username: string, page = 0): Promise<PostType[]> => {
+  const cache = JSON.parse(localStorage.getItem("cachedPosts") ?? "{}");
+
+  if (cache && cache.time + 43200000 > new Date().getTime()) {
+    return cache.ret;
+  }
+
   const { data } = await fetch("https://api.hashnode.com", {
     method: "POST",
     headers: {
@@ -34,21 +40,26 @@ const getAllPosts = async (username: string, page = 0): Promise<PostType[]> => {
 
   const postLength = data?.user?.publication?.posts?.length;
 
-  console.log(data);
+  let ret;
 
   if (postLength && postLength > 0) {
-    return data.user.publication.posts.concat(
+    ret = data.user.publication.posts.concat(
       await getAllPosts(username, page + 1)
     );
   } else {
-    return data.user.publication.posts;
+    ret = data.user.publication.posts;
   }
+
+  localStorage.setItem(
+    "cachedPosts",
+    JSON.stringify({ ret, time: new Date().getTime() })
+  );
+
+  return ret;
 };
 
 const getTopPosts = async (username: string) => {
   const posts = await getAllPosts(username);
-
-  console.log(posts);
 
   const comparePostData = (
     { totalReactions: reactions1 }: PostType,
