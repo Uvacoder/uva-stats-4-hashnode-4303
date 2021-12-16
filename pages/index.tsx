@@ -59,9 +59,9 @@ export default function Home() {
           placeholder="username"
         />
         <Link href={`/${user}`} passHref>
-          <a className="font-mono text-center text-gray-50 hover:underline">
+          <button className="font-mono text-center px-3 p-1 bg-blue-200 rounded-full hover:bg-blue-100">
             Go to user&apos;s dashboard
-          </a>
+          </button>
         </Link>
       </form>
     </div>
