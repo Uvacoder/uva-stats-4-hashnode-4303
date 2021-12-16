@@ -39,17 +39,11 @@ const getTopPosts = async (username: string) => {
 
     const userPostsJson = await userPostsRes.json();
 
-    if (userPostsJson.data) {
-      if (userPostsJson.data.user) {
-        if (userPostsJson.data.user.publication) {
-          if (userPostsJson.data.user.publication.posts.length > 0) {
-            posts = posts.concat(userPostsJson.data.user.publication.posts);
-            i++;
-          } else {
-            loadMoreData = false;
-          }
-        }
-      }
+    if (userPostsJson.data.user.publication.posts.length > 0) {
+      posts = posts.concat(userPostsJson.data.user.publication.posts);
+      i++;
+    } else {
+      loadMoreData = false;
     }
   }
 
