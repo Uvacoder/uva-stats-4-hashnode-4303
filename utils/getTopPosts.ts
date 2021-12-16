@@ -20,7 +20,7 @@ query($username: String!, $page: Int) {
 }
 `;
 
-const getAllPosts = async (username: string, page = 0): PostType[] => {
+const getAllPosts = async (username: string, page = 0): Promise<PostType[]> => {
   const { data } = await fetch("https://api.hashnode.com", {
     method: "POST",
     headers: {
