@@ -5,108 +5,127 @@ import Post from "../components/Post";
 import Socials from "../components/Socials";
 import { PostType } from "../types/PostType";
 import { UserType } from "../types/UserType";
+import getUserData from "../utils/getUserData";
+import getUserPosts from "../utils/getUserPosts";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-// interface Props {
-//   data: {
-//     data: {
-//       user: UserType;
-//     };
-//   };
-// }
+const UserDashboard = () => {
+  const [userData, setUserData] = useState<UserType | null>();
+  const [postsData, setPostsData] = useState<PostType[] | null>();
+  const [recentPostsData, setRecentPostsData] = useState<PostType[] | null>();
 
-interface Props {
-  userData: UserType;
-  postsData: PostType[];
-  recentPostsData: PostType[];
-}
+  const router = useRouter();
+  const { user } = router.query;
 
-const UserDashboard: React.FC<Props> = ({
-  userData,
-  postsData,
-  recentPostsData,
-}) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
+        setUserData(await getUserData(user as string));
+        const posts = await getUserPosts(user as string);
+        setRecentPostsData(posts as PostType[]);
+
+        const comparePostData = (post1: PostType, post2: PostType) => {
+          if (post1.totalReactions < post2.totalReactions) {
+            return 1;
+          } else if (post1.totalReactions > post2.totalReactions) {
+            return -1;
+          } else {
+            return 0;
+          }
+        };
+
+        const topPosts = posts.sort(comparePostData);
+        setPostsData(topPosts);
+      }
+    };
+    fetchData();
+  }, [user]);
+
   return (
     <div className="flex flex-col items-center min-h-screen p-10 pb-10 min-w-screen max-w-screen">
-      {userData.username ? (
-        <>
-          <NextSeo
-            title={`Dashboard for ${userData.name}`}
-            canonical={`https://hashnode-stats.vercel.app/${userData.username}`}
-          />
-
-          <Header />
-
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`https://hashnode.com/@${userData.username}`}
-            className="relative w-40 h-40 rounded-full"
-          >
-            <Image
-              layout="fill"
-              className="rounded-full"
-              objectFit="cover"
-              src={userData.photo}
-              alt={userData.name}
+      {userData && postsData && recentPostsData ? (
+        userData.username && (
+          <>
+            <NextSeo
+              title={`Dashboard for ${userData.name}`}
+              canonical={`https://hashnode-stats.vercel.app/${userData.username}`}
             />
-          </a>
-          <div className="flex flex-col">
-            <h2 className="text-2xl font-medium text-center dark:text-gray-50 text-[#1B1A28]">
-              Account
-            </h2>
 
-            <div className="flex">
-              <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Followers: {userData.numFollowers}
-              </p>
-              <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Following: {userData.numFollowing}
-              </p>
-              <p className="py-2 px-4 m-1 rounded-lg  text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF]">
-                Total Reactions: {userData.numReactions}
-              </p>
-              <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
-                Total Posts: {userData.numPosts}
-              </p>
-            </div>
-          </div>
+            <Header />
 
-          <Socials
-            socials={userData.socialMedia}
-            hashnode={`https://hashnode.com/@${userData.username}`}
-          />
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://hashnode.com/@${userData.username}`}
+              className="relative w-40 h-40 rounded-full"
+            >
+              <Image
+                layout="fill"
+                className="rounded-full"
+                objectFit="cover"
+                src={userData.photo}
+                alt={userData.name}
+              />
+            </a>
+            <div className="flex flex-col">
+              <h2 className="text-2xl font-medium text-center dark:text-gray-50 text-[#1B1A28]">
+                Account
+              </h2>
 
-          <div className="flex flex-col">
-            <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
-              Recent posts
-            </h2>
-            <div className="flex flex-col flex-wrap md:flex-row">
-              {recentPostsData.slice(0, 3).map((post: PostType) => (
-                <Post
-                  publicationDomain={userData.publicationDomain}
-                  key={post._id}
-                  post={post}
-                />
-              ))}
+              <div className="flex">
+                <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
+                  Followers: {userData.numFollowers}
+                </p>
+                <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
+                  Following: {userData.numFollowing}
+                </p>
+                <p className="py-2 px-4 m-1 rounded-lg  text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF]">
+                  Total Reactions: {userData.numReactions}
+                </p>
+                <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
+                  Total Posts: {userData.numPosts}
+                </p>
+              </div>
             </div>
 
-            <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
-              Top posts
-            </h2>
-            <div className="flex flex-col flex-wrap md:flex-row">
-              {postsData.slice(0, 3).map((post: PostType) => (
-                <Post
-                  publicationDomain={userData.publicationDomain}
-                  key={post._id}
-                  post={post}
-                />
-              ))}
+            <Socials
+              socials={userData.socialMedia}
+              hashnode={`https://hashnode.com/@${userData.username}`}
+            />
+
+            <div className="flex flex-col">
+              <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
+                Recent posts
+              </h2>
+              <div className="flex flex-col flex-wrap md:flex-row">
+                {recentPostsData.slice(0, 3).map((post: PostType) => (
+                  <Post
+                    publicationDomain={userData.publicationDomain}
+                    key={post._id}
+                    post={post}
+                  />
+                ))}
+              </div>
+
+              <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
+                Top posts
+              </h2>
+              <div className="flex flex-col flex-wrap md:flex-row">
+                {postsData.slice(0, 3).map((post: PostType) => (
+                  <Post
+                    publicationDomain={userData.publicationDomain}
+                    key={post._id}
+                    post={post}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </>
+          </>
+        )
       ) : (
         <h1 className="mt-10 text-3xl font-semibold text-[#1B1A28] dark:text-gray-50">
-          User not found
+          Loading...
         </h1>
       )}
     </div>
@@ -114,131 +133,3 @@ const UserDashboard: React.FC<Props> = ({
 };
 
 export default UserDashboard;
-
-export async function getServerSideProps(context: any) {
-  const userName = context.query.user;
-
-  const userDataQuery = `
-   {
-      user(username: "${userName}") {
-        username
-        numFollowing
-        numFollowers
-        numReactions
-        name
-        photo
-        publicationDomain
-        numPosts
-        socialMedia {
-          twitter
-          github
-          linkedin
-          website
-          facebook
-          stackoverflow
-        }
-         publication {
-					posts(page: 0) {
-						_id
-						title
-						brief
-						slug
-						coverImage
-						totalReactions
-						replyCount
-						responseCount
-						popularity
-					}
-				}
-      }
-    }
-  `;
-
-  const postDataQuery = `
-		query($username: String!, $page: Int) {
-			user(username: $username) {
-				publication {
-					posts(page: $page) {
-						_id
-						title
-						brief
-						slug
-						coverImage
-						totalReactions
-						replyCount
-						responseCount
-						popularity
-					}
-				}
-			}
-		}
-	`;
-
-  const userDataRes = await fetch("https://api.hashnode.com", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ query: userDataQuery }),
-  });
-  const userData = await userDataRes.json();
-
-  const recentPosts = userData.data.user.publication.posts;
-
-  let posts: PostType[] = [];
-
-  if (userData.data) {
-    if (userData.data.user) {
-      let loadMoreData = true;
-      let i = 0;
-
-      while (loadMoreData) {
-        const userPostsRes = await fetch("https://api.hashnode.com", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            query: postDataQuery,
-            variables: { username: userName, page: i },
-          }),
-        });
-
-        const userPostsJson = await userPostsRes.json();
-
-        if (userPostsJson.data) {
-          if (userPostsJson.data.user) {
-            if (userPostsJson.data.user.publication) {
-              if (userPostsJson.data.user.publication.posts.length > 0) {
-                posts = posts.concat(userPostsJson.data.user.publication.posts);
-                i++;
-              } else {
-                loadMoreData = false;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  const comparePostData = (post1: PostType, post2: PostType) => {
-    if (post1.totalReactions < post2.totalReactions) {
-      return 1;
-    } else if (post1.totalReactions > post2.totalReactions) {
-      return -1;
-    } else {
-      return 0;
-    }
-  };
-
-  posts = posts.sort(comparePostData);
-
-  return {
-    props: {
-      userData: userData.data.user,
-      postsData: posts,
-      recentPostsData: recentPosts,
-    },
-  };
-}
