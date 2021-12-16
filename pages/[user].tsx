@@ -5,7 +5,6 @@ import Post from "../components/Post";
 import Socials from "../components/Socials";
 import { PostType } from "../types/PostType";
 import { UserType } from "../types/UserType";
-import getUserData from "../utils/getUserDataAndPosts";
 import getUserPosts from "../utils/getTopPosts";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
