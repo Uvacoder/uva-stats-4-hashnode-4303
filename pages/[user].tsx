@@ -9,6 +9,7 @@ import getUserPosts from "../utils/getTopPosts";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import getUserDataAndPosts from "../utils/getUserDataAndPosts";
+import { CommentIcon, LikeIcon } from "../components/icons";
 
 interface Props {
   userDataAndPosts: UserType;
@@ -113,7 +114,26 @@ const UserDashboard = ({ userDataAndPosts }: Props) => {
                     />
                   ))
               ) : (
-                <p className="text-white">Loading...</p>
+                <>
+                  {[0, 1, 2].map(i => (
+                    <div
+                      key={i}
+                      className="relative flex flex-col my-5 mt-5 rounded-lg md:mb-0 h-[500px] md:mx-5 w-96 dark:bg-[#232626] bg-[#00A7FF] "
+                    >
+                      <div className="flex animate-pulse items-center flex-col h-full w-full rounded-lg">
+                        <div className="w-full bg-gray-300 h-52 rounded-lg"></div>
+                        <div className="flex flex-col w-full p-4 pb-0">
+                          <div className="w-full bg-gray-300 h-14 rounded-md"></div>
+                          <div className="w-full mt-2 bg-gray-300 h-40 rounded-md"></div>
+                        </div>
+                        <div className="flex justify-between w-full p-4 mt-auto">
+                          <LikeIcon className="w-6 h-6 mr-2 fill-current text-[#1B1A28] dark:text-gray-50" />
+                          <CommentIcon className="w-6 h-6 mr-2 fill-current text-[#1B1A28] dark:text-gray-50" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
               )}
             </div>
           </div>
