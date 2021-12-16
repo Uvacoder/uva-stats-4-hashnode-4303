@@ -18,7 +18,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
       <h2 className="my-3 text-2xl font-semibold text-center dark:text-gray-50 text-[#1B1A28]:text-gray-50">
         Social Media
       </h2>
-      <div className="flex">
+      <div className="flex justify-center">
         {socials.twitter.length > 0 && (
           <a
             className="mx-3"
@@ -26,7 +26,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <TwitterIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] " />
+            <TwitterIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] hover:dark:bg-[#2a2e2e] hover:bg-[#33b8ff]" />
           </a>
         )}
         {socials.github.length > 0 && (
@@ -36,7 +36,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GitHubIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] " />
+            <GitHubIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] hover:dark:bg-[#2a2e2e] hover:bg-[#33b8ff]" />
           </a>
         )}
         {socials.linkedin.length > 0 && (
@@ -46,7 +46,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <LinkedInIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] " />
+            <LinkedInIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] hover:dark:bg-[#2a2e2e] hover:bg-[#33b8ff]" />
           </a>
         )}
         {socials.website.length > 0 && (
@@ -56,7 +56,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GlobeIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] " />
+            <GlobeIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] hover:dark:bg-[#2a2e2e] hover:bg-[#33b8ff]" />
           </a>
         )}
         <a
@@ -65,7 +65,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <HashnodeIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] " />
+          <HashnodeIcon className="w-12 h-12 p-3 rounded-md fill-current text-[#1B1A28] dark:text-gray-50 dark:bg-[#232626] bg-[#00A7FF] hover:dark:bg-[#2a2e2e] hover:bg-[#33b8ff]" />
         </a>
       </div>
     </div>
