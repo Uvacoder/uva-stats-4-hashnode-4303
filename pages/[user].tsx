@@ -56,12 +56,12 @@ const UserDashboard = ({ userDataAndPosts }: Props) => {
               alt={userDataAndPosts.name}
             />
           </a>
-          <div className="flex flex-col">
-            <h2 className="text-2xl font-medium text-center dark:text-gray-50 text-[#1B1A28]">
+          <div className="flex flex-col mt-4 mb-4">
+            <h2 className="text-2xl font-semibold text-center dark:text-gray-50 text-[#1B1A28]">
               Account
             </h2>
 
-            <div className="flex">
+            <div className="flex mt-4">
               <p className="py-2 px-4 m-1 rounded-lg text-[#1B1A28] dark:text-gray-50  dark:bg-[#232626] bg-[#00A7FF]">
                 Followers: {userDataAndPosts.numFollowers}
               </p>
@@ -83,7 +83,7 @@ const UserDashboard = ({ userDataAndPosts }: Props) => {
           />
 
           <div className="flex flex-col">
-            <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
+            <h2 className="mt-10 text-2xl font-semibold text-center text-[#1B1A28] dark:text-gray-50">
               Recent posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
@@ -98,7 +98,7 @@ const UserDashboard = ({ userDataAndPosts }: Props) => {
                 ))}
             </div>
 
-            <h2 className="mt-10 text-2xl font-medium text-center text-[#1B1A28] dark:text-gray-50">
+            <h2 className="mt-10 text-2xl font-semibold text-center text-[#1B1A28] dark:text-gray-50">
               Top posts
             </h2>
             <div className="flex flex-col flex-wrap md:flex-row">
