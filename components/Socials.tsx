@@ -18,7 +18,7 @@ const Socials: React.FC<Props> = ({ socials, hashnode }) => {
       <h2 className="my-3 text-2xl font-semibold text-center dark:text-gray-50 text-[#1B1A28]:text-gray-50">
         Social Media
       </h2>
-      <div className="flex">
+      <div className="flex justify-center">
         {socials.twitter.length > 0 && (
           <a
             className="mx-3"
