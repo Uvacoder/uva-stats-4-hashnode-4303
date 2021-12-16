@@ -21,7 +21,7 @@ query($username: String!, $page: Int) {
 `;
 
 const getAllPosts = async (username: string, page = 0): Promise<PostType[]> => {
-  const cache = localStorage.getItem("cachedPosts");
+  const cache = JSON.parse(localStorage.getItem("cachedPosts"));
 
   if (cache && cache.time + 43200000 > new Date().getTime()) {
     return cache.ret;
