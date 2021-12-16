@@ -54,6 +54,8 @@ const getAllPosts = async (username: string, page = 0): Promise<PostType[]> => {
     "cachedPosts",
     JSON.stringify({ ret, time: new Date().getTime() })
   );
+
+  return ret;
 };
 
 const getTopPosts = async (username: string) => {
