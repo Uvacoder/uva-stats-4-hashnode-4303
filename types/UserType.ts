@@ -1,3 +1,4 @@
+import { PostType } from "./PostType";
 import { SocialTypes } from "./SocialTypes";
 
 export type UserType = {
@@ -10,4 +11,7 @@ export type UserType = {
   photo: string;
   publicationDomain: string;
   socialMedia: SocialTypes;
+  publication: {
+    posts: PostType[];
+  };
 };

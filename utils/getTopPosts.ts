@@ -1,6 +1,6 @@
 import { PostType } from "../types/PostType";
 
-const getuserPosts = async (username: string) => {
+const getTopPosts = async (username: string) => {
   const postDataQuery = `
 	query($username: String!, $page: Int) {
 		user(username: $username) {
@@ -53,7 +53,19 @@ const getuserPosts = async (username: string) => {
     }
   }
 
-  return posts;
+  const comparePostData = (post1: PostType, post2: PostType) => {
+    if (post1.totalReactions < post2.totalReactions) {
+      return 1;
+    } else if (post1.totalReactions > post2.totalReactions) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  const topPosts = posts.sort(comparePostData);
+
+  return topPosts;
 };
 
-export default getuserPosts;
+export default getTopPosts;
