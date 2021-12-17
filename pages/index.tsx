@@ -54,13 +54,13 @@ export default function Home() {
         <input
           value={user}
           onChange={e => setUser(e.target.value)}
-          className="p-2 font-mono bg-blue-200 border-blue-400 rounded-lg w-60 focus:border-2 focus:outline-none"
+          className="p-2 font-mono bg-blue-200 focus:border-blue-400 dark:focus:border-slate-600 dark:bg-gray-800 dark:text-gray-100  rounded-lg w-60 border-transparent  border-2 focus:outline-none"
           type="text"
           placeholder="username"
         />
         <Link href={`/${user}`} passHref>
-          <button className="font-mono text-center px-3 p-1 bg-blue-200 rounded-full hover:bg-blue-100">
-            Go to user&apos;s dashboard
+          <button className="font-mono text-center px-3 p-1 bg-blue-200 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 rounded-full hover:bg-blue-100">
+            Go to dashboard
           </button>
         </Link>
       </form>
