@@ -1,20 +1,26 @@
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
-import Link from "next/link";
 import { useState } from "react";
 import Header from "../components/Header";
+
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
   const [user, setUser] = useState("");
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    user ? toast.loading("Coming up!") : toast.error("Please add an input");
     e.preventDefault();
     router.push(`/${user}`);
   };
 
+  const go = () => {
+    user ? router.push(`/${user}`) : toast.error("Please add an input");
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <Toaster position="top-left" />
       <Head>
         <title>Hashnode Stats</title>
       </Head>
@@ -58,12 +64,13 @@ export default function Home() {
           type="text"
           placeholder="username"
         />
-        <Link href={`/${user}`} passHref>
-          <button className="font-mono text-center px-3 p-1 bg-blue-200 rounded-full hover:bg-blue-100">
-            Go to user&apos;s dashboard
-          </button>
-        </Link>
       </form>
+      <button
+        className="my-2 font-mono text-center px-3 p-1 bg-blue-200 rounded-full hover:bg-blue-100"
+        onClick={go}
+      >
+        Go to user&apos;s dashboard
+      </button>
     </div>
   );
 }
