@@ -10,14 +10,17 @@ export default function Home() {
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    user ? toast.loading("Coming up!") : toast.error("Please add an input");
     e.preventDefault();
-    router.push(`/${user}`);
+    console.log("submitted");
+    user
+      ? toast.promise(router.push(`/${user}`), {
+          loading: "Coming up...",
+          success: "Success!",
+          error: "Something went wrong!",
+        })
+      : toast.error("Please add an input");
   };
 
-  const go = () => {
-    user ? router.push(`/${user}`) : toast.error("Please add an input");
-  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Toaster position="top-left" />
@@ -64,13 +67,13 @@ export default function Home() {
           type="text"
           placeholder="username"
         />
+        <button
+          className="p-1 px-3 my-2 font-mono text-center bg-blue-200 rounded-full hover:bg-blue-100"
+          type="submit"
+        >
+          Go to user&apos;s dashboard
+        </button>
       </form>
-      <button
-        className="my-2 font-mono text-center px-3 p-1 bg-blue-200 rounded-full hover:bg-blue-100"
-        onClick={go}
-      >
-        Go to user&apos;s dashboard
-      </button>
     </div>
   );
 }
