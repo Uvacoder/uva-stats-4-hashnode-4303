@@ -41,7 +41,7 @@ const UserDashboard = ({ userDataAndPosts }: Props) => {
             canonical={`https://hashnode-stats.vercel.app/${userDataAndPosts.username}`}
           />
 
-          <Header />
+          <Header showBackToHome />
 
           <a
             target="_blank"
@@ -120,11 +120,11 @@ const UserDashboard = ({ userDataAndPosts }: Props) => {
                       key={i}
                       className="relative flex flex-col my-5 mt-5 rounded-lg md:mb-0 h-[500px] md:mx-5 w-96 dark:bg-[#232626] bg-[#00A7FF] "
                     >
-                      <div className="flex animate-pulse items-center flex-col h-full w-full rounded-lg">
-                        <div className="w-full bg-gray-300 h-52 rounded-lg"></div>
+                      <div className="flex flex-col items-center w-full h-full rounded-lg animate-pulse">
+                        <div className="w-full bg-gray-300 rounded-lg h-52"></div>
                         <div className="flex flex-col w-full p-4 pb-0">
-                          <div className="w-full bg-gray-300 h-14 rounded-md"></div>
-                          <div className="w-full mt-2 bg-gray-300 h-40 rounded-md"></div>
+                          <div className="w-full bg-gray-300 rounded-md h-14"></div>
+                          <div className="w-full h-40 mt-2 bg-gray-300 rounded-md"></div>
                         </div>
                         <div className="flex justify-between w-full p-4 mt-auto">
                           <LikeIcon className="w-6 h-6 mr-2 fill-current text-[#1B1A28] dark:text-gray-50" />
