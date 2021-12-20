@@ -1,11 +1,22 @@
 import useDarkMode from "../hooks/useDarkMode";
+import NextLink from "next/link";
 
-const Header = () => {
+interface HeaderProps {
+  showBackToHome?: boolean;
+}
+
+const Header = ({ showBackToHome }: HeaderProps): JSX.Element => {
   const [colorTheme, setTheme] = useDarkMode();
 
   return (
     <div className="fixed flex items-center justify-between w-screen px-10 top-5">
-      <div></div>
+      <div>
+        {showBackToHome && (
+          <NextLink href="/" passHref>
+            <a className="text-[#1B1A28] dark:text-gray-50">← Back To Home</a>
+          </NextLink>
+        )}
+      </div>
       {colorTheme === "light" ? (
         <svg
           onClick={() => setTheme("light")}
