@@ -25,7 +25,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Toaster position="top-left" />
       <Head>
-        <title>Hashnode Stats</title>
+        <title>Stats-a-Hash</title>
       </Head>
       <Header />
 
@@ -34,7 +34,7 @@ export default function Home() {
         onSubmit={handleSubmit}
       >
         <h1 className="font-mono text-2xl font-extrabold text-center text-gray-50">
-          Hashnode Stats
+          Stats-a-Hash
         </h1>
         <p className="font-mono text-center text-gray-50 text-md">
           This website shows various statistics of{" "}
@@ -51,7 +51,7 @@ export default function Home() {
         <p className="font-mono text-center text-gray-50 text-md">
           This project is open-source, feel free to star and contribute on{" "}
           <a
-            href="https://github.com/avneesh0612/hashnode-analytics"
+            href="https://github.com/uvacoder/abc-hashnodestats"
             className="font-bold hover:underline"
             rel="noreferrer"
             target="_blank"
