@@ -7,9 +7,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <NextSeo
-        title="Hashnode Stats"
+        title="Stats-a-Hash"
         description="This app shows stats for any hashnode profile."
-        canonical="https://hashnode-stats.vercel.app/"
+        canonical="https://abc-hashnodestats.vercel.app/"
         openGraph={{
           url: "https://hashnode-stats.vercel.app/",
           title: "Hashnode Stats",
